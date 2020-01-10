@@ -31,6 +31,13 @@ Return
 Return
 }
 
+; Snap window left
++#j::
+{
+    Send, {LWinDown}}{left}{LWinUp}
+Return
+}
+
 ; T3 - Go window right
 #e::
 #k::
@@ -44,7 +51,14 @@ Return
 Return
 }
 
-;; HJKL alt navigation 
+; Snap window left
++#k::
+{
+    Send, {LWinDown}}{right}{LWinUp}
+Return
+}
+
+;; HJKL alt navigation
 
 ; left
 !h::
@@ -53,7 +67,7 @@ Return
         SendInput, {AltDown}{Up}{AltUp}
     } Else {
         SendInput, {left}
-    }    
+    }
 return
 
 ; ctrl left
