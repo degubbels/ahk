@@ -85,14 +85,35 @@ return
     SendInput, {CtrlDown}{left}{CtrlUp}
 Return
 
+; shift left
++!h::
+    SendInput, {ShiftDown}{left}{ShiftUp}
+Return
+
+
+; ctrl shift left
++^!h::
+    SendInput, {ShiftDown}{CtrlDown}{left}{CtrlUp}{ShiftUp}
+Return
+
 ; Down
 !j::
     SendInput, {Down}
-return    
+return
+
+; Shift down
++!j::
+    SendInput, {ShiftDown}{down}{ShiftUp}
+return
 
 ; Up
 !k::
     SendInput, {Up}
+return
+
+; Shift up
++!k::
+    SendInput, {ShiftDown}{up}{ShiftUp}
 return
 
 ; Right
@@ -108,4 +129,15 @@ return
 ; ctrl right
 ^!l::
     SendInput, {CtrlDown}{right}{CtrlUp}
+Return
+
+; shift right
++!l::
+    SendInput, {ShiftDown}{right}{ShiftUp}
+Return
+
+
+; ctrl shift right
++^!l::
+    SendInput, {ShiftDown}{CtrlDown}{right}{CtrlUp}{ShiftUp}
 Return
