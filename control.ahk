@@ -58,6 +58,16 @@ Return
 Return
 }
 
+; Center mouse
+#i::
+{
+    WinGetPos, , , winwidth, winheight, A
+    winwidth /= 2
+    winheight /= 2
+    MouseMove, %winwidth%, %winheight%, 0
+Return
+}
+
 ;; HJKL alt navigation
 
 ; left
