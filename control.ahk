@@ -80,6 +80,11 @@ Return
     }
 return
 
+; Home left
+!g::
+    SendInput, {Home}
+return
+
 ; ctrl left
 ^!h::
     SendInput, {CtrlDown}{left}{CtrlUp}
@@ -90,6 +95,10 @@ Return
     SendInput, {ShiftDown}{left}{ShiftUp}
 Return
 
+; Home shift left
++!g::
+    SendInput, {ShiftDown}{Home}{ShiftUp}
+return
 
 ; ctrl shift left
 +^!h::
@@ -126,6 +135,11 @@ return
     }
 return
 
+; End right
+!;::
+    SendInput, {End}
+return
+
 ; ctrl right
 ^!l::
     SendInput, {CtrlDown}{right}{CtrlUp}
@@ -136,6 +150,10 @@ Return
     SendInput, {ShiftDown}{right}{ShiftUp}
 Return
 
+; End shift right
++!;::
+    SendInput, {ShiftDown}{End}{ShiftUp}
+return
 
 ; ctrl shift right
 +^!l::
