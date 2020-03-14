@@ -58,6 +58,16 @@ Return
 Return
 }
 
+; Go tab left
+#h::
+    Send, {CtrlDown}{ShiftDown}{Tab}{ShiftUp}{CtrlUp}
+return
+
+; Go tab right
+#l::
+    Send, {CtrlDown}{Tab}{CtrlUp}
+return
+
 ; Center mouse
 #i::
 {
