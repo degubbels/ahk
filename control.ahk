@@ -1,22 +1,33 @@
-#SingleInstance, Force
-DetectHiddenWindows, On
-SetTitleMatchMode, 1
-SetMouseDelay, 0
+; #NoEnv
+; #Warn
+; #SingleInstance, Force
+; SetWorkingDir %A_ScriptDir%
+; DetectHiddenWindows, On
+; SetTitleMatchMode, 1
+; SetMouseDelay, 0
+; SendMode Input
 
 ; T1 - Activate powershell
+; #q::
+; {
+;     If (WinActive("PowerShell") )
+;     {
+;         WinMinimize, A
+;         WinActivate, "ahk_id %last%"
+;     }
+;     Else
+;     {
+;         WinGet, last, ID, A
+;         WinActivate, PowerShell
+;     }
+; Return
+; }
+
+; Close window
 #q::
 {
-    If (WinActive("PowerShell") )
-    {
-        WinMinimize, A
-        WinActivate, "ahk_id %last%"
-    }
-    Else
-    {
-        WinGet, last, ID, A
-        WinActivate, PowerShell
-    }
-Return
+    WinClose, A
+return
 }
 
 ; T2 - Go window left
@@ -66,6 +77,15 @@ return
 ; Go tab right
 #l::
     Send, {CtrlDown}{Tab}{CtrlUp}
+return
+
+; Go desktop left
+^#j::
+    Send, {CtrlDown}{LWinDown}{left}{LWinUp}{CtrlUp}
+return
+
+^#k::
+    Send, {CtrlDown}{LWinDown}{right}{LWinUp}{CtrlUp}
 return
 
 ; Center mouse
