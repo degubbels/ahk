@@ -1,4 +1,18 @@
 #SingleInstance, force
+SetScrollLockState, Off
+
+; Disable regular caps lock
+CapsLock::Return
+
+; Ctrl+capslock replaces regular
+^CapsLock::
+    toggle := !toggle
+    If (toggle) {
+        SetCapsLockState, On
+    } Else {
+        SetCapsLockState, Off
+    }
+Return
 
 CapsLock & q:: 
     If (GetKeyState("Alt", "P")){ 
@@ -39,7 +53,7 @@ Return
 CapsLock & a::
 If (GetKeyState("Alt", "P")){ 
         SendInput :
-    } Else { 
+    } Else {
         SendInput `;
     }
 Return
@@ -106,6 +120,44 @@ If (GetKeyState("Alt", "P")){
         SendInput N
     } Else { 
         SendInput n
+    }
+Return
+
+
+; Number are shifted, not mirrored
+CapsLock & 1::
+    If (GetKeyState("Alt", "P")){
+        SendInput {^}
+    } Else {
+        SendInput 6
+    }
+Return
+CapsLock & 2::
+    If (GetKeyState("Alt", "P")){
+        SendInput &
+    } Else {
+        SendInput 7
+    }
+Return
+CapsLock & 3::
+    If (GetKeyState("Alt", "P")){
+        SendInput *
+    } Else {
+        SendInput 8
+    }
+Return
+CapsLock & 4::
+    If (GetKeyState("Alt", "P")){
+        SendInput (
+    } Else {
+        SendInput 9
+    }
+Return
+CapsLock & 5::
+    If (GetKeyState("Alt", "P")){
+        SendInput )
+    } Else {
+        SendInput 0
     }
 Return
 
