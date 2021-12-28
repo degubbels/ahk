@@ -1,4 +1,5 @@
 ﻿; Created by Asger Juul Brunshøj
+; Customised by degu
 
 ; Note: Save with encoding UTF-8 with BOM if possible.
 ; I had issues with special characters like in ¯\_(ツ)_/¯ that wouldn't work otherwise.
@@ -8,194 +9,64 @@
 ; Write your own AHK commands in this file to be recognized by the GUI. Take inspiration from the samples provided here.
 
 ;-------------------------------------------------------------------------------
-;;; SEARCH GOOGLE ;;;
-;-------------------------------------------------------------------------------
-if Pedersen = g%A_Space% ; Search Google
-{
-    gui_search_title = LMGTFY
-    gui_search("https://www.google.com/search?num=50&safe=off&site=&source=hp&q=REPLACEME&btnG=Search&oq=&gs_l=")
-}
-else if Pedersen = a%A_Space% ; Search Google for AutoHotkey related stuff
-{
-    gui_search_title = Autohotkey Google Search
-    gui_search("https://www.google.com/search?num=50&safe=off&site=&source=hp&q=autohotkey%20REPLACEME&btnG=Search&oq=&gs_l=")
-}
-else if Pedersen = l%A_Space% ; Search Google with ImFeelingLucky
-{
-    gui_search_title = I'm Feeling Lucky
-    gui_search("http://www.google.com/search?q=REPLACEME&btnI=Im+Feeling+Lucky")
-}
-else if Pedersen = m%A_Space% ; Open more than one URL
-{
-    gui_search_title = multiple
-    gui_search("https://www.google.com/search?&q=REPLACEME")
-    gui_search("https://www.bing.com/search?q=REPLACEME")
-    gui_search("https://duckduckgo.com/?q=REPLACEME")
-}
-else if Pedersen = x%A_Space% ; Search Google as Incognito
-;   A note on how this works:
-;   The function name "gui_search()" is poorly chosen.
-;   What you actually specify as the parameter value is a command to run. It does not have to be a URL.
-;   Before the command is run, the word REPLACEME is replaced by your input.
-;   It does not have to be a search url, that was just the application I had in mind when I originally wrote it.
-;   So what this does is that it runs chrome with the arguments "-incognito" and the google search URL where REPLACEME in the URL has been replaced by your input.
-{
-    gui_search_title = Google Search as Incognito
-    gui_search("C:\Program Files (x86)\Google\Chrome\Application\chrome.exe -incognito https://www.google.com/search?safe=off&q=REPLACEME")
-}
-
-;-------------------------------------------------------------------------------
 ;;; LAUNCH WEBSITES AND PROGRAMS ;;;
 ;-------------------------------------------------------------------------------
-else if Pedersen = / ; Go to subreddit. This is a quick way to navigate to a specific URL.
+if command = r/ ; Go to subreddit. This is a quick way to navigate to a specific URL.
 {
     gui_search_title := "/r/"
     gui_search("https://www.reddit.com/r/REPLACEME")
 }
-else if Pedersen = face ; facebook.com
-{
-    gui_destroy()
-    run www.facebook.com
-}
-else if Pedersen = red ; reddit.com
-{
-    gui_destroy()
-    run www.reddit.com
-}
-else if Pedersen = cal ; Google Calendar
-{
-    gui_destroy()
-    run https://www.google.com/calendar
-}
-else if Pedersen = note ; Notepad
+else if command = note ; Notepad
 {
     gui_destroy()
     Run Notepad
 }
-else if Pedersen = paint ; MS Paint
-{
-    gui_destroy()
-    run "C:\Windows\system32\mspaint.exe"
-}
-else if Pedersen = maps ; Google Maps focused on the Technical University of Denmark, DTU
-{
-    gui_destroy()
-    run "https://www.google.com/maps/@55.7833964`,12.5244754`,12z"
-}
-else if Pedersen = inbox ; Open google inbox
-{
-    gui_destroy()
-    run https://inbox.google.com/u/0/
-    ; run https://mail.google.com/mail/u/0/#inbox  ; Maybe you prefer the old gmail
-}
-else if Pedersen = mes ; Opens Facebook unread messages
-{
-    gui_destroy()
-    run https://www.facebook.com/messages?filter=unread&action=recent-messages
-}
-else if Pedersen = url ; Open an URL from the clipboard (naive - will try to run whatever is in the clipboard)
-{
-    gui_destroy()
-    run %ClipBoard%
-}
-
 
 ;-------------------------------------------------------------------------------
 ;;; INTERACT WITH THIS AHK SCRIPT ;;;
 ;-------------------------------------------------------------------------------
-else if Pedersen = rel ; Reload this script
+else if command = rel ; Reload this script
 {
     gui_destroy() ; removes the GUI even when the reload fails
     Reload
 }
-else if Pedersen = dir ; Open the directory for this script
+else if command = commands ; Edit GUI user commands
 {
     gui_destroy()
-    Run, %A_ScriptDir%
+    run, "C:\run\VS-Code\Code.exe" "%A_ScriptDir%\GUI\UserCommands.ahk" -n
 }
-else if Pedersen = host ; Edit host script
-{
-    gui_destroy()
-    run, notepad.exe "%A_ScriptFullPath%"
-}
-else if Pedersen = user ; Edit GUI user commands
-{
-    gui_destroy()
-    run, notepad.exe "%A_ScriptDir%\GUI\UserCommands.ahk"
-}
-
-
-;-------------------------------------------------------------------------------
-;;; TYPE RAW TEXT ;;;
-;-------------------------------------------------------------------------------
-else if Pedersen = @ ; Email address
-{
-    gui_destroy()
-    Send, my_email_address@gmail.com
-}
-else if Pedersen = name ; My name
-{
-    gui_destroy()
-    Send, My Full Name
-}
-else if Pedersen = phone ; My phone number
-{
-    gui_destroy()
-    SendRaw, +45-12345678
-}
-else if Pedersen = int ; LaTeX integral
-{
-    gui_destroy()
-    SendRaw, \int_0^1  \; \mathrm{d}x\,
-}
-else if Pedersen = logo ; ¯\_(ツ)_/¯
-{
-    gui_destroy()
-    Send ¯\_(ツ)_/¯
-}
-else if Pedersen = clip ; Paste clipboard content without formatting
-{
-    gui_destroy()
-    SendRaw, %ClipBoard%
-}
-
 
 ;-------------------------------------------------------------------------------
 ;;; OPEN FOLDERS ;;;
 ;-------------------------------------------------------------------------------
-else if Pedersen = dl ; Downloads
+else if command = dl ; Downloads
 {
     gui_destroy()
-    run C:\Users\%A_Username%\Downloads
+    run d:/download
 }
-else if Pedersen = rec ; Recycle Bin
+else if command = rec ; Recycle Bin
 {
     gui_destroy()
     Run ::{645FF040-5081-101B-9F08-00AA002F954E}
 }
-
+else if command = appdata ; AppData
+{    
+    gui_destroy()
+    run C:\Users\%A_Username%\AppData
+}
 
 ;-------------------------------------------------------------------------------
 ;;; MISCELLANEOUS ;;;
 ;-------------------------------------------------------------------------------
-else if Pedersen = ping ; Ping Google
-{
-    gui_destroy()
-    Run, cmd /K "ping www.google.com"
-}
-else if Pedersen = hosts ; Open hosts file in Notepad
-{
-    gui_destroy()
-    Run notepad.exe C:\Windows\System32\drivers\etc\hosts
-}
-else if Pedersen = date ; What is the date?
+
+else if command = date ; What is the date?
 {
     gui_destroy()
     FormatTime, date,, LongDate
     MsgBox %date%
     date =
 }
-else if Pedersen = week ; Which week is it?
+else if command = week ; Which week is it?
 {
     gui_destroy()
     FormatTime, weeknumber,, YWeek
@@ -206,9 +77,9 @@ else if Pedersen = week ; Which week is it?
     weeknumber =
     weeknumbertrimmed =
 }
-else if Pedersen = ? ; Tooltip with list of commands
+else if command = ? ; Tooltip with list of commands
 {
-    GuiControl,, Pedersen, ; Clear the input box
+    GuiControl,, command, ; Clear the input box
     Gosub, gui_commandlibrary
 }
 
@@ -216,19 +87,58 @@ else if Pedersen = ? ; Tooltip with list of commands
 ;;; PROGRAMS ;;;
 ;-------------------------------------------------------------------------------
 
-; Everything
-else if Pedersen = er
+
+else if command = er ; Everything
 {
     gui_destroy()
     Run, "D:\run\Everything\Everything.exe"
 }
 
 ;-------------------------------------------------------------------------------
-;;; Open environments ;;;
+;;; Desktop Environment control ;;;
 ;-------------------------------------------------------------------------------
 
-else if Pedersen = ma
+else if command = atop ; Always on top
 {
     gui_destroy()
-    
+    Winset, Alwaysontop, Toggle, A
+    WinGet, ExStyle, ExStyle, A
+    If (ExStyle & 0x8) {
+        MsgBox Window now always on top
+    } else {
+        MsgBox Window no longer always on top
+    }
+}
+
+else if command = bare ; Run window bare
+{
+    gui_destroy()
+    Winset, Style, ^0x800000, A
+}
+
+;-------------------------------------------------------------------------------
+;;; Map Locations ;;;
+;-------------------------------------------------------------------------------
+
+else if command = wien ; Google Maps focused on Wien
+{
+    gui_destroy()
+    run "https://www.google.com/maps/@48.2109985`,16.3614064`,8561m/data=!3m1!1e3"
+}
+
+else if command = ehv ; Google Maps focused on Eindhoven
+{
+    gui_destroy()
+    run "https://www.google.com/maps/@51.4447028`,5.5061685`,1367 e8m/data=!3m1!1e3"
+}
+
+;-------------------------------------------------------------------------------
+;;; Working Environments ;;;
+;-------------------------------------------------------------------------------
+
+else if command = ahk
+{
+    gui_destroy()
+    run, wt.exe -d "d:/dev/script/ahk/"
+    run, "C:\run\VS-Code\Code.exe" "D:/dev/script/ahk/" -n
 }
