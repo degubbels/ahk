@@ -62,9 +62,8 @@ else if command = appdata ; AppData
 else if command = date ; What is the date?
 {
     gui_destroy()
-    FormatTime, date,, LongDate
-    MsgBox %date%
-    date =
+    FormatTime, date,, dd-MM-yy
+    SendInput, %date%
 }
 else if command = week ; Which week is it?
 {
@@ -81,6 +80,13 @@ else if command = ? ; Tooltip with list of commands
 {
     GuiControl,, command, ; Clear the input box
     Gosub, gui_commandlibrary
+}
+
+else if command = time ; Write current time
+{
+    gui_destroy()
+    FormatTime, currtime,, HH:mm
+    SendInput, %currtime%
 }
 
 ;-------------------------------------------------------------------------------
@@ -141,4 +147,25 @@ else if command = ahk
     gui_destroy()
     run, wt.exe -d "d:/dev/script/ahk/"
     run, "C:\run\VS-Code\Code.exe" "D:/dev/script/ahk/" -n
+}
+
+else if command = angkor
+{
+    gui_destroy()
+    run wt.exe -d "d:/dev/web/Angkor-map/"
+    run wt.exe -w 0 -d "d:/dev/web/Angkor-map/"
+
+    run d:/docs/work/angkor
+    run d:/docs/work/angkor/uren.ods
+
+    run "C:\run\VS-Code\Code.exe" "D:/dev/web/Angkor-map/" -n
+}
+
+else if command = ma
+{
+    gui_destroy()
+    run https://www.overleaf.com/project/619e293928a6a9a2f7bc1305
+    run wt.exe -d "D:/dev/uni/ma/python/"
+    run "C:\run\VS-Code\Code.exe" "D:/dev/uni/ma/python/" -n
+    run "D:\docs\uni\MA\"
 }
