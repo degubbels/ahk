@@ -7,7 +7,8 @@ SetWorkingDir %A_ScriptDir%
 DetectHiddenWindows, On
 SetTitleMatchMode, 1
 SetMouseDelay, 0
-#SingleInstance
+#SingleInstance force
+#Persistent
 
 SetCapsLockState, AlwaysOff
 
