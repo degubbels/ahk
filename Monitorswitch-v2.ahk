@@ -3,7 +3,7 @@
 ; #SingleInstance, Force
 ; SetWorkingDir %A_ScriptDir%
 ; SetTitleMatchMode, 1
-SetKeyDelay, 10, 10
+; SetKeyDelay, 10, 10
 ; DetectHiddenWindows, On
 ; Wacom monitor switch v2
 
@@ -51,4 +51,4 @@ SetKeyDelay, 10, 10
     }
     return
 
-SetKeyDelay, 0, 0
+; SetKeyDelay, 0, 0

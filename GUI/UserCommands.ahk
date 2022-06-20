@@ -54,6 +54,11 @@ else if command = appdata ; AppData
     gui_destroy()
     run C:\Users\%A_Username%\AppData
 }
+else if command = startup ; Startup folder
+{
+    gui_destroy()
+    run "C:\Users\%A_Username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
+}
 
 ;-------------------------------------------------------------------------------
 ;;; MISCELLANEOUS ;;;

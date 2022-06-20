@@ -15,8 +15,9 @@ SetCapsLockState, AlwaysOff
 Gosub, gui_autoexecute
 return
 
-#Include %A_ScriptDir%\control.ahk
+; #Include %A_ScriptDir%\control.ahk
 #Include %A_ScriptDir%\one-hand-typing.ahk
+#Include, %A_ScriptDir%\application-shortcuts.ahk
 #Include %A_ScriptDir%\Monitorswitch-v2.ahk
 
 ; Host script
