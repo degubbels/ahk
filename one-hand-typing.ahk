@@ -1,18 +1,8 @@
-#SingleInstance, force
-SetScrollLockState, Off
-
-; Disable regular caps lock
-CapsLock::Return
-
-; Ctrl+capslock replaces regular
-^CapsLock::
-    toggle := !toggle
-    If (toggle) {
-        SetCapsLockState, On
-    } Else {
-        SetCapsLockState, Off
-    }
-Return
+; #NoEnv
+; #Warn
+; #SingleInstance, Force
+; SetWorkingDir %A_ScriptDir%
+; SendMode Input
 
 CapsLock & q:: 
     If (GetKeyState("Alt", "P")){ 
@@ -60,7 +50,7 @@ Return
 CapsLock & s::
 If (GetKeyState("Alt", "P")){ 
         SendInput L
-    } Else { 
+    } Else {
         SendInput l
     }
 Return
@@ -167,7 +157,7 @@ CapsLock & `:: SendInput {Backspace}
 
 ; Left-handed vim-like movement
 !s:: SendInput {Left}
-!g:: SendInput {Right}
+; !g:: SendInput {Right}
 !d:: SendInput {Up}
 !f:: SendInput {Down}
 ^!s:: SendInput {CtrlDown}{Left}{CtrlUp}
