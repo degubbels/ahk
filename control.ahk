@@ -1,4 +1,4 @@
-; #NoEnv
+﻿; #NoEnv
 ; #Warn
 ; #SingleInstance, Force
 ; SetWorkingDir %A_ScriptDir%
@@ -23,11 +23,38 @@
 ; Return
 ; }
 
+#Include %A_ScriptDir%\chords.ahk
+
+; Click
+!i::
+{
+    Click
+Return
+}
+
+; Launch lf
+#f::
+{
+    run wt.exe -p lf
+    WinWait lf ahk_exe WindowsTerminal.exe
+    WinActivate lf ahk_exe WindowsTerminal.exe
+    Send {LWinDown}{left}{LWinUp}
+
+}
+return
+
 ; Close window
 #q::
 {
     WinClose, A
 return
+}
+
+; Maximise window
+#o::
+{
+    WinMaximize, A
+Return
 }
 
 ; T2 - Go window left
@@ -45,7 +72,7 @@ Return
 ; Snap window left
 +#j::
 {
-    Send, {LWinDown}}{left}{LWinUp}
+    Send, {LWinDown}{left}{LWinUp}
 Return
 }
 
@@ -65,7 +92,7 @@ Return
 ; Snap window left
 +#k::
 {
-    Send, {LWinDown}}{right}{LWinUp}
+    Send, {LWinDown}{right}{LWinUp}
 Return
 }
 
@@ -189,3 +216,27 @@ return
 +^!l::
     SendInput, {ShiftDown}{CtrlDown}{right}{CtrlUp}{ShiftUp}
 Return
+
+; nuke (delete)
+!n::
+    SendInput, {delete}
+Return
+
+; escape
+!q::
+    SendInput, {escape}
+Return
+
+; Left-handed vim-like movement
+!s:: SendInput {Left}
+; !g:: SendInput {Right}
+!d:: SendInput {Up}
+!f:: SendInput {Down}
+; ^!s:: SendInput {CtrlDown}{Left}{CtrlUp}
+^!g:: SendInput {CtrlDown}{Right}{CtrlUp}
+^!d:: SendInput {CtrlDown}{Up}{CtrlUp}
+^!f:: SendInput {CtrlDown}{Down}{CtrlUp}
++^!s:: SendInput {ShiftDown}{CtrlDown}{Left}{CtrlUp}{ShiftUp}
++^!g:: SendInput {ShiftDown}{CtrlDown}{Right}{CtrlUp}{ShiftUp}
++^!d:: SendInput {ShiftDown}{CtrlDown}{Up}{CtrlUp}{ShiftUp}
++^!f:: SendInput {ShiftDown}{CtrlDown}{Down}{CtrlUp}{ShiftUp}
