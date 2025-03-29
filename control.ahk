@@ -7,23 +7,24 @@
 ; SetMouseDelay, 0
 ; SendMode Input
 
-; T1 - Activate powershell
-; #q::
-; {
-;     If (WinActive("PowerShell") )
-;     {
-;         WinMinimize, A
-;         WinActivate, "ahk_id %last%"
-;     }
-;     Else
-;     {
-;         WinGet, last, ID, A
-;         WinActivate, PowerShell
-;     }
-; Return
-; }
-
 #Include %A_ScriptDir%\chords.ahk
+
+; Suspend hotkeys
+#\::Suspend, Toggle
+
+; Context menu
+#/::
+{
+	send {AppsKey}
+return
+}
+
+; Right Click
+!u::
+{
+	Click, Right
+Return
+}
 
 ; Click
 !i::
@@ -39,9 +40,21 @@ Return
     WinWait lf ahk_exe WindowsTerminal.exe
     WinActivate lf ahk_exe WindowsTerminal.exe
     Send {LWinDown}{left}{LWinUp}
-
-}
 return
+}
+
+; Launch Notepad++
+#n::
+{
+	If (WinActive("ahk_class CabinetWClass")) {
+		Send {AppsKey}
+		Sleep, 80
+		Send {n}
+	} else {
+		run "C:\Program Files\Notepad++\notepad++.exe"
+	}
+return
+}
 
 ; Close window
 #q::
@@ -142,6 +155,11 @@ return
     SendInput, {Home}
 return
 
+; Home Top
+^!g::
+	SendInput, {CtrlDown}{Home}{CtrlUp}
+return
+
 ; ctrl left
 ^!h::
     SendInput, {CtrlDown}{left}{CtrlUp}
@@ -167,6 +185,11 @@ Return
     SendInput, {Down}
 return
 
+; 8 Down
+!m::
+	SendInput, {Down 8}
+return
+
 ; Shift down
 +!j::
     SendInput, {ShiftDown}{down}{ShiftUp}
@@ -175,6 +198,11 @@ return
 ; Up
 !k::
     SendInput, {Up}
+return
+
+; 8 up
+!o::
+	SendInput, {Up 8}
 return
 
 ; Shift up
@@ -192,9 +220,37 @@ return
     }
 return
 
+; VS to Constructor
+#c::
+	SendInput {CtrlDown}f{CtrlUp}
+	SendInput class{space}
+	sleep 10
+	SendInput {Esc}
+	sleep 200
+	SendInput {ShiftDown}{End}{ShiftUp}
+	SendInput {CtrlDown}c{CtrlUp}
+	sleep 20
+	classname := StrSplit(Clipboard, [A_Tab, A_Space])[2]
+	SendInput {CtrlDown}f{CtrlUp}
+	SendInput public %classname%
+	Send (
+	sleep 100
+	SendInput {Esc}
+return
+
+; VS To Implementation
+!v::
+	SendInput {CtrlDown}{F12}{CtrlUp}
+return
+
 ; End right
 !;::
     SendInput, {End}
+return
+
+; End bottom
+^!;::
+	SendInput, {CtrlDown}{End}{CtrlUp}
 return
 
 ; ctrl right
@@ -233,10 +289,10 @@ Return
 !d:: SendInput {Up}
 !f:: SendInput {Down}
 ; ^!s:: SendInput {CtrlDown}{Left}{CtrlUp}
-^!g:: SendInput {CtrlDown}{Right}{CtrlUp}
+;^!g:: SendInput {CtrlDown}{Right}{CtrlUp}
 ^!d:: SendInput {CtrlDown}{Up}{CtrlUp}
 ^!f:: SendInput {CtrlDown}{Down}{CtrlUp}
 +^!s:: SendInput {ShiftDown}{CtrlDown}{Left}{CtrlUp}{ShiftUp}
-+^!g:: SendInput {ShiftDown}{CtrlDown}{Right}{CtrlUp}{ShiftUp}
+;+^!g:: SendInput {ShiftDown}{CtrlDown}{Right}{CtrlUp}{ShiftUp}
 +^!d:: SendInput {ShiftDown}{CtrlDown}{Up}{CtrlUp}{ShiftUp}
 +^!f:: SendInput {ShiftDown}{CtrlDown}{Down}{CtrlUp}{ShiftUp}
