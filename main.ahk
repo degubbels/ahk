@@ -25,3 +25,6 @@ return
 #Include %A_ScriptDir%\Miscellaneous\miscellaneous.ahk
 
 CapsLock & Space:: Gosub, gui_spawn
+
+#'::
+Suspend,Toggle
